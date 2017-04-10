@@ -1,0 +1,1047 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16E195" minimumToolsVersion="Xcode 7.0" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Address" representedClassName=".Address" syncable="YES">
+        <attribute name="address1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="address2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal"/>
+            </userInfo>
+        </attribute>
+        <attribute name="longitude" optional="YES" attributeType="Double" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal"/>
+            </userInfo>
+        </attribute>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="postalCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="privacy" attributeType="Integer 16" defaultValueString="3" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="Profile.PrivacySetting"/>
+            </userInfo>
+        </attribute>
+        <attribute name="region" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="event" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="address" inverseEntity="Event" syncable="YES"/>
+        <relationship name="groupAddress" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="meetingAddress" inverseEntity="Group" syncable="YES"/>
+        <relationship name="meetings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Meeting" inverseName="address" inverseEntity="Meeting" syncable="YES"/>
+        <relationship name="profiles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Profile" inverseName="primaryAddress" inverseEntity="Profile" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="AttendanceRecord" representedClassName="RealmCore.AttendanceRecord" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="marked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="meeting" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Meeting" inverseName="attendanceRecords" inverseEntity="Meeting" syncable="YES"/>
+        <relationship name="profile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="attendanceRecords" inverseEntity="Profile" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Campaign" representedClassName="RealmCore.Campaign" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="pledges" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Pledge" inverseName="campaign" inverseEntity="Pledge" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Comment" representedClassName=".Comment" syncable="YES">
+        <attribute name="blurb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bodyMedia" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="type" value="MediaContent"/>
+            </userInfo>
+        </attribute>
+        <attribute name="commentableID" optional="YES" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" syncable="YES"/>
+        <attribute name="commentableType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="creator" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="comments" inverseEntity="Profile" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Event" representedClassName=".Event" syncable="YES">
+        <attribute name="blurb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bodyMedia" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="type" value="MediaContent"/>
+            </userInfo>
+        </attribute>
+        <attribute name="cancelled" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="cancelledMessage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fileCollectionID" optional="YES" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" syncable="YES">
+            <userInfo>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="frequencyEndDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="frequencyPeriod" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="frequencyRecurrence" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="Recurrence"/>
+            </userInfo>
+        </attribute>
+        <attribute name="hasChildCare" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isPrimary" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isRsvp" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="registrationCloseDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="startingAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="stoppingAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="address" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Address" inverseName="event" inverseEntity="Address" syncable="YES"/>
+        <relationship name="creator" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="createdEvents" inverseEntity="Profile" syncable="YES"/>
+        <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="events" inverseEntity="Group" syncable="YES"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="event" inverseEntity="Item" syncable="YES"/>
+        <relationship name="meetings" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Meeting" inverseName="event" inverseEntity="Meeting" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="EventRsvp" representedClassName=".EventRsvp" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="response" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="Response"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="total" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ItemRsvp" inverseName="eventRsvp" inverseEntity="ItemRsvp" syncable="YES"/>
+        <relationship name="meeting" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Meeting" inverseName="rsvps" inverseEntity="Meeting" syncable="YES"/>
+        <relationship name="responder" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="rsvps" inverseEntity="Profile" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="FileAttachment" representedClassName=".FileAttachment" syncable="YES">
+        <attribute name="attachableID" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="attachableType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="collectionID" optional="YES" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" syncable="YES">
+            <userInfo>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="contentType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fileSize" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fileURL" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="type" value="URL"/>
+            </userInfo>
+        </attribute>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="fileAttachments" inverseEntity="Group" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Gift" representedClassName="RealmCore.Gift" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="giftDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="isDeductible" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="paymentDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="paymentType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="giftDetails" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GiftDetail" inverseName="gift" inverseEntity="GiftDetail" syncable="YES"/>
+        <relationship name="individual" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="gifts" inverseEntity="Profile" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="GiftDetail" representedClassName="RealmCore.GiftDetail" syncable="YES">
+        <attribute name="amount" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fundName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="gift" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Gift" inverseName="giftDetails" inverseEntity="Gift" syncable="YES"/>
+        <relationship name="recurrence" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recurrence" inverseName="giftDetails" inverseEntity="Recurrence" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Group" representedClassName=".Group" syncable="YES">
+        <attribute name="activeUserCount" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="emailSubscription" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="SubscriptionSetting"/>
+            </userInfo>
+        </attribute>
+        <attribute name="groupChatEnabled" attributeType="Boolean" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="groupCollectionEnabled" attributeType="Boolean" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="groupDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="groupEventEnabled" attributeType="Boolean" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="groupPostEnabled" attributeType="Boolean" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="groupTagName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="groupType" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="GroupType"/>
+            </userInfo>
+        </attribute>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="notificationSubscription" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="SubscriptionSetting"/>
+            </userInfo>
+        </attribute>
+        <attribute name="primaryEventRecurrence" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="revision" attributeType="Integer 64" valueTransformerName="RealmCore.UUIDValueTransformer" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="role" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="fallbackValue" value="Role.member"/>
+                <entry key="isTypeOptional" value="false"/>
+                <entry key="rawType" value="Role"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="events" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="group" inverseEntity="Event" syncable="YES"/>
+        <relationship name="fileAttachments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FileAttachment" inverseName="group" inverseEntity="FileAttachment" syncable="YES"/>
+        <relationship name="guests" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Profile" inverseName="guestGroups" inverseEntity="Profile" syncable="YES"/>
+        <relationship name="imageAttachments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ImageCollection" inverseName="group" inverseEntity="ImageCollection" syncable="YES"/>
+        <relationship name="leaders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Profile" inverseName="leaderGroups" inverseEntity="Profile" syncable="YES"/>
+        <relationship name="meetingAddress" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Address" inverseName="groupAddress" inverseEntity="Address" syncable="YES"/>
+        <relationship name="members" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Profile" inverseName="memberGroups" inverseEntity="Profile" syncable="YES"/>
+        <relationship name="posts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Post" inverseName="group" inverseEntity="Post" syncable="YES"/>
+        <relationship name="resources" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GroupResource" inverseName="group" inverseEntity="GroupResource" syncable="YES"/>
+        <relationship name="roster" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Profile" inverseName="groups" inverseEntity="Profile" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="GroupResource" representedClassName="RealmCore.GroupResource" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="dateModified" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="directLink" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="type" value="URL"/>
+            </userInfo>
+        </attribute>
+        <attribute name="resourceName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="resources" inverseEntity="Group" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="GroupTag" representedClassName="RealmCore.GroupTag" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="groupTagDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="groupTagName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="ImageAttachment" representedClassName=".ImageAttachment" syncable="YES">
+        <attribute name="assetIdentifier" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal"/>
+            </userInfo>
+        </attribute>
+        <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contentType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="height" attributeType="Integer 32" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal"/>
+            </userInfo>
+        </attribute>
+        <attribute name="imageURL" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="type" value="URL"/>
+            </userInfo>
+        </attribute>
+        <attribute name="liked" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="generate" value="false"/>
+            </userInfo>
+        </attribute>
+        <attribute name="likesCount" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="position" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="uploadID" optional="YES" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" syncable="YES">
+            <userInfo>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="uploadURL" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="type" value="URL"/>
+            </userInfo>
+        </attribute>
+        <attribute name="width" attributeType="Integer 32" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal"/>
+            </userInfo>
+        </attribute>
+        <relationship name="collection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ImageCollection" inverseName="attachments" inverseEntity="ImageCollection" syncable="YES"/>
+        <relationship name="recentCollection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ImageCollection" inverseName="recentAttachments" inverseEntity="ImageCollection" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="ImageCollection" representedClassName=".ImageCollection" syncable="YES">
+        <attribute name="blurb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bodyMedia" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="type" value="MediaContent"/>
+            </userInfo>
+        </attribute>
+        <attribute name="commentCount" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="liked" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="generate" value="false"/>
+            </userInfo>
+        </attribute>
+        <attribute name="likesCount" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="attachments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ImageAttachment" inverseName="collection" inverseEntity="ImageAttachment" syncable="YES">
+            <userInfo>
+                <entry key="didSet" value="updateRecentAttachments"/>
+            </userInfo>
+        </relationship>
+        <relationship name="creator" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="createdImageCollections" inverseEntity="Profile" syncable="YES"/>
+        <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="imageAttachments" inverseEntity="Group" syncable="YES"/>
+        <relationship name="newsFeedItem" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="NewsFeedItem" inverseName="imageCollection" inverseEntity="NewsFeedItem" syncable="YES"/>
+        <relationship name="recentAttachments" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="ImageAttachment" inverseName="recentCollection" inverseEntity="ImageAttachment" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Item" representedClassName=".Item" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="quantity" optional="YES" attributeType="Integer 64" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="remaining" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="event" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="items" inverseEntity="Event" syncable="YES"/>
+        <relationship name="itemRsvps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ItemRsvp" inverseName="item" inverseEntity="ItemRsvp" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="ItemRsvp" representedClassName=".ItemRsvp" syncable="YES">
+        <attribute name="count" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="eventRsvp" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EventRsvp" inverseName="items" inverseEntity="EventRsvp" syncable="YES"/>
+        <relationship name="item" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Item" inverseName="itemRsvps" inverseEntity="Item" syncable="YES"/>
+    </entity>
+    <entity name="Like" representedClassName=".Like" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="likeableID" optional="YES" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" syncable="YES">
+            <userInfo>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="likeableType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="creator" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="likes" inverseEntity="Profile" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Meeting" representedClassName=".Meeting" syncable="YES">
+        <attribute name="additionalAttendance" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="calendarEventID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cancelled" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="cancelledMessage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commentCount" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="isOnCalendar" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="isRegistered" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="liked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="generate" value="false"/>
+            </userInfo>
+        </attribute>
+        <attribute name="likesCount" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="markedAttendance" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="sectionName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="startingAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="didSet" value="udpateSectionName"/>
+            </userInfo>
+        </attribute>
+        <attribute name="stoppingAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="type" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="EventType"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="address" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Address" inverseName="meetings" inverseEntity="Address" syncable="YES"/>
+        <relationship name="attendanceRecords" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AttendanceRecord" inverseName="meeting" inverseEntity="AttendanceRecord" syncable="YES"/>
+        <relationship name="event" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="meetings" inverseEntity="Event" syncable="YES"/>
+        <relationship name="newsFeedItem" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="NewsFeedItem" inverseName="meeting" inverseEntity="NewsFeedItem" syncable="YES"/>
+        <relationship name="rsvps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EventRsvp" inverseName="meeting" inverseEntity="EventRsvp" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Message" representedClassName=".Message" syncable="YES">
+        <attribute name="assetIdentifier" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal"/>
+            </userInfo>
+        </attribute>
+        <attribute name="attributedBody" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="type" value="NSAttributedString"/>
+            </userInfo>
+        </attribute>
+        <attribute name="body" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="didSet" value="updateAttributedBody"/>
+            </userInfo>
+        </attribute>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="didSet" value="udpateSectionName"/>
+            </userInfo>
+        </attribute>
+        <attribute name="imageContentType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageHeight" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="imageURL" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="type" value="URL"/>
+            </userInfo>
+        </attribute>
+        <attribute name="imageWidth" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="sectionName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="type" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ContentType"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="latestRoom" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Room" inverseName="latestMessage" inverseEntity="Room" syncable="YES"/>
+        <relationship name="room" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Room" inverseName="messages" inverseEntity="Room" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="messages" inverseEntity="Profile" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="NewsFeedItem" representedClassName=".NewsFeedItem" syncable="YES">
+        <attribute name="bumpedReason" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="lastViewed" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="relevantAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="imageCollection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ImageCollection" inverseName="newsFeedItem" inverseEntity="ImageCollection" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal"/>
+            </userInfo>
+        </relationship>
+        <relationship name="meeting" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Meeting" inverseName="newsFeedItem" inverseEntity="Meeting" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal"/>
+            </userInfo>
+        </relationship>
+        <relationship name="post" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Post" inverseName="newsFeedItem" inverseEntity="Post" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal"/>
+            </userInfo>
+        </relationship>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Phone" representedClassName=".Phone" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="isPrimary" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="phoneExtension" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phoneType" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="PhoneType"/>
+            </userInfo>
+        </attribute>
+        <attribute name="privacy" attributeType="Integer 16" defaultValueString="3" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="Profile.PrivacySetting"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="profile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="primaryPhone" inverseEntity="Profile" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Pledge" representedClassName="RealmCore.Pledge" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fundDisplayName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fundName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="status" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="PledgeStatus"/>
+            </userInfo>
+        </attribute>
+        <attribute name="stopDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="totalAmount" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="totalGiven" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="campaign" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Campaign" inverseName="pledges" inverseEntity="Campaign" syncable="YES"/>
+        <relationship name="individual" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="pledges" inverseEntity="Profile" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Post" representedClassName=".Post" syncable="YES">
+        <attribute name="blurb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bodyMedia" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="type" value="MediaContent"/>
+            </userInfo>
+        </attribute>
+        <attribute name="commentCount" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fileCollectionID" optional="YES" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" syncable="YES">
+            <userInfo>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="liked" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="generate" value="false"/>
+            </userInfo>
+        </attribute>
+        <attribute name="likesCount" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="creator" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="createdPosts" inverseEntity="Profile" syncable="YES"/>
+        <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="posts" inverseEntity="Group" syncable="YES"/>
+        <relationship name="newsFeedItem" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="NewsFeedItem" inverseName="post" inverseEntity="NewsFeedItem" syncable="YES"/>
+        <relationship name="ownerProfile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="posts" inverseEntity="Profile" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Profile" representedClassName=".Profile" syncable="YES">
+        <attribute name="birthDate" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="type" value="DateComponents"/>
+            </userInfo>
+        </attribute>
+        <attribute name="campusName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="familyPosition" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="FamilyPosition"/>
+            </userInfo>
+        </attribute>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fullName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gender" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="Gender"/>
+            </userInfo>
+        </attribute>
+        <attribute name="isCurrentUser" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="didSet" value="didSetIsCurrentUser"/>
+            </userInfo>
+        </attribute>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="maritalStatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="middleName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="preferredName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="primaryEmail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="primaryEmailPrivacy" attributeType="Integer 16" defaultValueString="3" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="PrivacySetting"/>
+            </userInfo>
+        </attribute>
+        <attribute name="revision" attributeType="Integer 64" valueTransformerName="RealmCore.UUIDValueTransformer" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="welcomeMessages" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal"/>
+                <entry key="type" value="[String:Any]"/>
+            </userInfo>
+        </attribute>
+        <relationship name="attendanceRecords" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AttendanceRecord" inverseName="profile" inverseEntity="AttendanceRecord" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="creator" inverseEntity="Comment" syncable="YES"/>
+        <relationship name="createdEvents" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="creator" inverseEntity="Event" syncable="YES"/>
+        <relationship name="createdImageCollections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ImageCollection" inverseName="creator" inverseEntity="ImageCollection" syncable="YES"/>
+        <relationship name="createdPosts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Post" inverseName="creator" inverseEntity="Post" syncable="YES"/>
+        <relationship name="familyMembers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Profile" inverseName="familyMembers" inverseEntity="Profile" syncable="YES"/>
+        <relationship name="gifts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Gift" inverseName="individual" inverseEntity="Gift" syncable="YES"/>
+        <relationship name="groups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="roster" inverseEntity="Group" syncable="YES"/>
+        <relationship name="guestGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="guests" inverseEntity="Group" syncable="YES"/>
+        <relationship name="leaderGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="leaders" inverseEntity="Group" syncable="YES"/>
+        <relationship name="likes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Like" inverseName="creator" inverseEntity="Like" syncable="YES"/>
+        <relationship name="memberGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="members" inverseEntity="Group" syncable="YES"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="user" inverseEntity="Message" syncable="YES"/>
+        <relationship name="pledges" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Pledge" inverseName="individual" inverseEntity="Pledge" syncable="YES"/>
+        <relationship name="posts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Post" inverseName="ownerProfile" inverseEntity="Post" syncable="YES"/>
+        <relationship name="primaryAddress" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Address" inverseName="profiles" inverseEntity="Address" syncable="YES"/>
+        <relationship name="primaryPhone" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Phone" inverseName="profile" inverseEntity="Phone" syncable="YES"/>
+        <relationship name="recentRooms" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Room" inverseName="recentParticipants" inverseEntity="Room" syncable="YES"/>
+        <relationship name="rooms" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Room" inverseName="participants" inverseEntity="Room" syncable="YES"/>
+        <relationship name="rsvps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EventRsvp" inverseName="responder" inverseEntity="EventRsvp" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Recurrence" representedClassName="RealmCore.Recurrence" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="nextPaymentDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="paymentDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="paymentType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="recurrenceType" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="RecurrenceType"/>
+            </userInfo>
+        </attribute>
+        <attribute name="reference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="rawType" value="Status"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="giftDetails" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GiftDetail" inverseName="recurrence" inverseEntity="GiftDetail" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Room" representedClassName="RealmCore.Room" syncable="YES">
+        <attribute name="chatMuted" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="chatMutedUntil" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="groupChatEnabled" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="groupName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isArchived" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="newMessageCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="type" attributeType="Integer 16" defaultValueString="3" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="RoomType"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="latestMessage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Message" inverseName="latestRoom" inverseEntity="Message" syncable="YES"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="room" inverseEntity="Message" syncable="YES"/>
+        <relationship name="participants" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Profile" inverseName="rooms" inverseEntity="Profile" syncable="YES"/>
+        <relationship name="recentParticipants" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Profile" inverseName="recentRooms" inverseEntity="Profile" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Site" representedClassName=".Site" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="onlineGivingEnabled" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="pledgesEnabled" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="serverID" attributeType="Transformable" valueTransformerName="RealmCore.UUIDValueTransformer" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="access" value="internal(set) public"/>
+                <entry key="type" value="UUID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="serverState" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="type" value="ServerState"/>
+            </userInfo>
+        </attribute>
+        <attribute name="timeZone" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="type" value="TimeZone"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="serverID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <elements>
+        <element name="Address" positionX="-36" positionY="135" width="128" height="315"/>
+        <element name="AttendanceRecord" positionX="-27" positionY="135" width="128" height="150"/>
+        <element name="Campaign" positionX="-18" positionY="144" width="128" height="120"/>
+        <element name="Comment" positionX="0" positionY="189" width="128" height="195"/>
+        <element name="Event" positionX="-36" positionY="135" width="128" height="420"/>
+        <element name="EventRsvp" positionX="-36" positionY="135" width="128" height="180"/>
+        <element name="FileAttachment" positionX="-27" positionY="144" width="128" height="240"/>
+        <element name="Gift" positionX="-27" positionY="135" width="128" height="210"/>
+        <element name="GiftDetail" positionX="-18" positionY="144" width="128" height="165"/>
+        <element name="Group" positionX="-63" positionY="-18" width="128" height="465"/>
+        <element name="GroupResource" positionX="-27" positionY="135" width="128" height="180"/>
+        <element name="GroupTag" positionX="-27" positionY="135" width="128" height="135"/>
+        <element name="ImageAttachment" positionX="-27" positionY="144" width="128" height="300"/>
+        <element name="ImageCollection" positionX="-36" positionY="135" width="128" height="270"/>
+        <element name="Item" positionX="-36" positionY="135" width="128" height="180"/>
+        <element name="ItemRsvp" positionX="-36" positionY="135" width="128" height="150"/>
+        <element name="Like" positionX="-18" positionY="126" width="128" height="150"/>
+        <element name="Meeting" positionX="-27" positionY="135" width="128" height="390"/>
+        <element name="Message" positionX="-36" positionY="135" width="128" height="285"/>
+        <element name="NewsFeedItem" positionX="-36" positionY="135" width="128" height="195"/>
+        <element name="Phone" positionX="-36" positionY="135" width="128" height="195"/>
+        <element name="Pledge" positionX="-27" positionY="135" width="128" height="240"/>
+        <element name="Post" positionX="-54" positionY="18" width="128" height="285"/>
+        <element name="Profile" positionX="-36" positionY="54" width="128" height="630"/>
+        <element name="Recurrence" positionX="0" positionY="162" width="128" height="210"/>
+        <element name="Room" positionX="-27" positionY="135" width="128" height="270"/>
+        <element name="Site" positionX="-27" positionY="135" width="128" height="165"/>
+    </elements>
+</model>

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+
+swift build
+time .build/debug/cdmodeltoswift SampleData/Model.xcdatamodel
