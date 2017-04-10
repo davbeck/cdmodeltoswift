@@ -10,11 +10,21 @@ import Foundation
 import CoreData
 
 
+let optionPrefix = "--"
+
+
 if #available(macOS 10.12, *) {
-	guard CommandLine.arguments.count > 1, let modelPath = CommandLine.arguments.last else { fatalError("Missing model path") }
+	let arguments = CommandLine.arguments.dropFirst() // first is always the path to the executable
+	let models = arguments.filter({ !$0.hasPrefix(optionPrefix) })
+	guard models.count > 0 else { fatalError("Missing model path") }
 	
-	cdmodeltoswift(modelPath: modelPath)
-		.then({
+	let options = arguments.flatMap({ arg -> Option? in
+		guard let range = arg.range(of: "--"), range.lowerBound == arg.startIndex else { return nil }
+		return Option(rawValue: arg.substring(from: range.upperBound))
+	})
+	
+	cdmodeltoswift(modelPaths: models, options: options)
+		.then({ _ in
 			exit(0)
 		})
 		.catch({ error in

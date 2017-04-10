@@ -18,7 +18,7 @@ extension NSManagedObjectModel {
 		return Promise<String>.all(generatePromises)
 			.then({ extensions -> String in
 				let extensionsOutput = extensions.joined(separator: "\n\n")
-				return "// Generated using modeltoswift\n\nimport Foundation\nimport CoreData\n\n\n" + extensionsOutput
+				return "// Generated using modeltoswift\n// https://github.com/davbeck/cdmodeltoswift\n\nimport Foundation\nimport CoreData\n\n\n" + extensionsOutput
 			})
 	}
 }
