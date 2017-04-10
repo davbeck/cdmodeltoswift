@@ -387,11 +387,16 @@ extension NSEntityDescription {
 	}
 	
 	
+	var swiftSuperclass: String {
+		return self.userInfo?["superclass"] as? String ?? "NSManagedObject"
+	}
+	
+	
 	func generateExtension() -> Promise<String> {
 		return Promise(work: {
 			var output = ""
 			
-			output += "public class \(self.swiftTypeName)Storage: ServerObject {\n"
+			output += "public class \(self.swiftTypeName)Storage: \(self.swiftSuperclass) {\n"
 			
 			output += "\tpublic static var entityName: String {\n"
 			output += "\t\treturn \"\(self.name!)\"\n"
