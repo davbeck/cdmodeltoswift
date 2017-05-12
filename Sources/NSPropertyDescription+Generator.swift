@@ -262,7 +262,10 @@ extension NSPropertyDescription {
 		output += "\t\tget {\n"
 		
 		output += "\t\t\tself.willAccessValue(forKey: \(key))\n"
-		output += "\t\t\tlet value = self.primitiveValue(forKey: \(key)) as? \(storageType)\n"
+		// we kmow that CoreData will always return the type from the model
+		// so we can improve performance by force casting to that known type
+		// but it's still could be nil, so it's force cast to an optional
+		output += "\t\t\tlet value = self.primitiveValue(forKey: \(key)) as! \(storageType)?\n"
 		output += "\t\t\tself.didAccessValue(forKey: \(key))\n\n"
 		
 		if let typeOverride = rawType {
@@ -270,9 +273,12 @@ extension NSPropertyDescription {
 		} else {
 			output += "\t\t\treturn value"
 		}
+		
 		if let fallbackValue = fallbackValue {
 			output += " ?? \(fallbackValue)"
 		}
+		
+		
 		output += "\n"
 		
 		output += "\t\t}"
