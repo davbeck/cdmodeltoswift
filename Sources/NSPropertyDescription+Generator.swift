@@ -376,4 +376,20 @@ extension NSRelationshipDescription {
 		
 		return nil
 	}
+	
+	override var swiftDeclaration: String {
+		var output = super.swiftDeclaration
+		
+		if isToMany, let inverseRelationship = self.inverseRelationship {
+			output += "\n\tpublic var \(name)Predicate: NSPredicate {\n"
+			if inverseRelationship.isToMany {
+				output += "\t\treturn NSPredicate(format: \"%@ IN \(inverseRelationship.name)\", self)\n"
+			} else {
+				output += "\t\treturn NSPredicate(format: \"%@ == \(inverseRelationship.name)\", self)\n"
+			}
+			output += "\t}"
+		}
+		
+		return output
+	}
 }
