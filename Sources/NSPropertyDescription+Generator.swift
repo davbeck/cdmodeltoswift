@@ -43,6 +43,10 @@ extension NSPropertyDescription {
 			case .objectIDAttributeType,
 			     .undefinedAttributeType:
 				return false
+			case .UUIDAttributeType:
+				return false
+			case .URIAttributeType:
+				return false
 			}
 		} else {
 			return false
@@ -133,6 +137,10 @@ extension NSPropertyDescription {
 			     .objectIDAttributeType,
 			     .undefinedAttributeType:
 				return attribute.attributeValueClassName ?? "Any"
+			case .UUIDAttributeType:
+				return "UUID"
+			case .URIAttributeType:
+				return "URL"
 			}
 		} else if let relationship = self as? NSRelationshipDescription {
 			guard let destinationEntity = relationship.destinationEntity else { return "Any" }
@@ -210,7 +218,9 @@ extension NSPropertyDescription {
 			     .binaryDataAttributeType,
 			     .transformableAttributeType,
 			     .objectIDAttributeType,
-			     .undefinedAttributeType:
+			     .undefinedAttributeType,
+			     .UUIDAttributeType,
+			     .URIAttributeType:
 				break
 			}
 		}
@@ -247,6 +257,10 @@ extension NSPropertyDescription {
 			case .transformableAttributeType,
 			     .objectIDAttributeType,
 			     .undefinedAttributeType:
+				break
+			case .UUIDAttributeType:
+				return "UUID(uuid: (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))"
+			case .URIAttributeType:
 				break
 			}
 		}
