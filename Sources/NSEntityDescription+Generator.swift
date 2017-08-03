@@ -27,10 +27,6 @@ extension NSEntityDescription {
 			
 			output += "public class \(self.swiftTypeName)Storage: \(self.swiftSuperclass) {\n"
 			
-			output += "\tpublic static var entityName: String {\n"
-			output += "\t\treturn \"\(self.name!)\"\n"
-			output += "\t}\n\n\n"
-			
 			var declarations: Array<String> = []
 			declarations += self.attributesByName.values.filter({ $0.shouldGenerate }).sorted(by: { $0.name < $1.name }).map({ $0.swiftDeclaration })
 			declarations += self.relationshipsByName.values.filter({ $0.shouldGenerate }).sorted(by: { $0.name < $1.name }).map({ $0.swiftDeclaration })
